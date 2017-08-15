@@ -18,7 +18,7 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
 
 worker
   .postMessage('ping')
-  .then(response => {
+  .then((emit, response) => {
     // handle response
   })
   .catch(error => {
