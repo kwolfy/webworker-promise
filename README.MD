@@ -1,4 +1,4 @@
-webworker-promise [![Build Status](https://travis-ci.org/kwolfy/webworker-promise.svg?branch=master)](https://travis-ci.org/kwolfy/webworker-promise)
+# webworker-promise [![Build Status](https://travis-ci.org/kwolfy/webworker-promise.svg?branch=master)](https://travis-ci.org/kwolfy/webworker-promise)
 
 A small promise based wrapper over the "webworkers"
 
@@ -186,3 +186,6 @@ Then to test in Node using pseudo-webworker
 Or to test with coverage reports:
 
     npm run coverage
+    
+    
+Inspired by https://github.com/nolanlawson/promise-worker
