@@ -77,7 +77,7 @@ And in `worker.js`
 
 ```js
 registerWebworker(async (emit, message) => {
-  return new TransferableResponse(arrayBuffer, [arrayBuffer]);
+  return new registerWebworker.TransferableResponse(arrayBuffer, [arrayBuffer]);
 });
 ```
 
@@ -153,12 +153,15 @@ Create a new `WebworkerPromise`, using the given worker.
 
 * `worker` - the `Worker` to use.
 
-#### `PromiseWorker.postMessage(message, transferableList = [])`
+#### `PromiseWorker.postMessage(message, transferableList, onEvent)`
 
 Send a message to the worker and return a Promise.
 
 * `message` - object - required
   * The message to send.
+* `transferable` - transferable list
+* `onEvent` - on-event callback function to handle events from worker
+  * Take eventName and message
 * returns a Promise
 
 ### Worker bundle
@@ -169,7 +172,7 @@ and returns a Promise.
 #### `registerWebworker(function)`
 
 * `function`
-  * Takes a message, returns a Promise;
+  * Takes a emit fn and message, returns a Promise;
 
 
 Testing the library
