@@ -2,12 +2,9 @@ language: node_js
 node_js:
 - stable
 sudo: false
-script: npm run $COMMAND
+script: npm run test
 before_script:
 - npm install
-env:
-  matrix:
-  - COMMAND=test
 branches:
   only:
   - master
