@@ -1,0 +1,33 @@
+{
+  "name": "webworker-promise",
+  "version": "0.1",
+  "description": "Promise for webworkers",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --out-dir lib --watch",
+    "test": "mocha test/test.js",
+    "coverage": "istanbul cover _mocha test/test.js",
+
+    "postinstall": "npm run build"
+  },
+  "author": {
+    "name": "kwolfy",
+    "email": "kwolfy11@gmail.com"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kwolfy/webworker-promise.git"
+  },
+
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "chai": "^4.1.0",
+    "chai-as-promised": "^7.1.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2"
+  }
+}
