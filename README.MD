@@ -188,4 +188,4 @@ Or to test with coverage reports:
     npm run coverage
     
     
-Inspired by https://github.com/kwolfy/webworker-promise
+Inspired by https://github.com/nolanlawson/promise-worker
