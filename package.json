@@ -8,19 +8,16 @@
     "watch": "babel src --out-dir lib --watch",
     "test": "mocha test/test.js",
     "coverage": "istanbul cover _mocha test/test.js",
-
     "postinstall": "npm run build"
   },
   "author": {
     "name": "kwolfy",
     "email": "kwolfy11@gmail.com"
   },
-
   "repository": {
     "type": "git",
     "url": "git://github.com/kwolfy/webworker-promise.git"
   },
-
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
