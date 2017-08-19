@@ -19,6 +19,21 @@ class Worker {
   }
 
   /**
+   * @param operationName string
+   * @param data any
+   * @param transferable array
+   * @param onEvent function
+   * @returns {Promise}
+   */
+  exec(operationName, data = null, transferable = [], onEvent) {
+    return new Promise((res, rej) => {
+      const messageId = this._messageId++;
+      this._messages.set(messageId, [res, rej, onEvent]);
+      this._worker.postMessage([messageId, data, operationName], transferable || []);
+    });
+  }
+
+  /**
    *
    * @param data any
    * @param transferable array

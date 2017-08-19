@@ -34,6 +34,9 @@ const math = {
 
 };
 
-register(async (emit, data) => {
+register(async (data, emit) => {
   return math[data.func](emit, data.delay, ...data.nums);
+})
+.operation('add-operation', async ([n1, n2]) => {
+  return n1 + n2;
 });

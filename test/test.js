@@ -101,6 +101,17 @@ describe('Worker promise', () => {
       expect(promise).to.be.eventually.equal(null);
     });
 
+    it('should call operation and get result', async () => {
+      const result = await worker.exec('add-operation', [10, 8]);
+      expect(result).to.be.equal(18);
+    });
+
+    it('should throw error when trying to call undefined operation', async () => {
+      const result = worker.exec('my-undefined-operation');
+      return expect(result).to.be.rejectedWith('Not found handler for this request');
+    });
+
+
   });
 
 });

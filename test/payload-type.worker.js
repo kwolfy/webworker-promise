@@ -1,6 +1,6 @@
 const register = require('../src/register');
 
-register(async (emitEvent, message) => {
+register(async (message) => {
   const messageType = getMessageType(message);
 
   if(messageType === 'object')

@@ -18,7 +18,7 @@ const worker = new WebworkerPromise(new Worker('worker.js'));
 
 worker
   .postMessage('ping')
-  .then((emit, response) => {
+  .then((response, emit) => {
     // handle response
   })
   .catch(error => {
@@ -32,7 +32,7 @@ Inside `worker.js`:
 // worker.js
 const registerWebworker = require('promise-worker/lib/register');
 
-registerWebworker(async (emit, message) => {
+registerWebworker(async (message, emit) => {
   //message - ping
   return 'pong';
 });
@@ -51,7 +51,7 @@ worker.postMessage({
 
 ```js
 // worker.js
-registerWebworker(async (emit, message) => {
+registerWebworker(async (message, emit) => {
   console.log(message); // { hello: 'world'}
 });
 ```
@@ -76,7 +76,7 @@ worker.postMessage({myArr: arrayBuffer, myArr2: arrayBuffer2}, [arrayBuffer, arr
 And in `worker.js`
 
 ```js
-registerWebworker(async (emit, message) => {
+registerWebworker(async (message, emit) => {
   return new registerWebworker.TransferableResponse(arrayBuffer, [arrayBuffer]);
 });
 ```
@@ -99,10 +99,33 @@ worker.postMessage('ping', [], (eventName, data) => {
 
 ```js
 // worker.js
-registerWebworker(async (emit, message) => {
+registerWebworker(async (message, emit) => {
   emit('hello', 'world');
   return 'pong';
 });
+```
+
+### Operations
+
+Also, you can create operations
+
+```js
+// worker.js
+registerWebworker(async (message) => {
+  //handle postMessage
+  return 'pong';
+})
+.operation('hello', async (message, emit) => {
+  return 'world';
+});
+```
+
+```js
+// main.js
+worker.exec('hello')
+.then(response => {
+  // world
+})
 ```
 
 ### Promises
