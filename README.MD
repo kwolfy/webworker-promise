@@ -30,7 +30,7 @@ Inside `worker.js`:
 
 ```js
 // worker.js
-const registerWebworker = require('promise-worker/register');
+const registerWebworker = require('promise-worker/lib/register');
 
 registerWebworker(async (emit, message) => {
   //message - ping
