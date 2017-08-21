@@ -13,7 +13,7 @@ Inside your main bundle:
 
 ```js
 // main.js
-const WebworkerPromise = require('promise-worker');
+const WebworkerPromise = require('webworker-promise');
 const worker = new WebworkerPromise(new Worker('worker.js'));
 
 worker
