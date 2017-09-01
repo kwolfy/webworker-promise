@@ -1,6 +1,6 @@
 {
   "name": "webworker-promise",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Promise for webworkers",
   "main": "lib/index.js",
   "scripts": {
