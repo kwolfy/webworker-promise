@@ -38,7 +38,7 @@ registerWebworker(async (message, emit) => {
 });
 ```
 
-### Nodejs shim
+### Nodejs
 
 You can use webworker-promise with nodejs using shim
 
@@ -226,6 +226,19 @@ Send a message to the worker and return a Promise.
   * Take eventName and message
 * returns a Promise
 
+#### `PromiseWorker.exec(operationName, message, transferableList, onEvent)`
+
+Send a message to the worker and return a Promise.
+
+* `operationName` - string - required
+  * Operation name to exec
+* `message` - object
+  * The message to send.
+* `transferable` - transferable list
+* `onEvent` - on-event callback function to handle events from worker
+  * Take eventName and message
+* returns a Promise
+
 ### Worker bundle
 
 Register a message handler inside of the worker. Your handler consumes a message
@@ -236,6 +249,13 @@ and returns a Promise.
 * `function`
   * Takes a emit fn and message, returns a Promise;
 
+#### `registerWebworker().operation(name, handler)`
+
+Add Operation.
+
+* `name` - string - required
+  * The message to send.
+* `handler` - handle the operation
 
 Testing the library
 ---
