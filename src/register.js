@@ -1,6 +1,6 @@
 const MESSAGE_RESULT = 0;
 const MESSAGE_EVENT = 1;
-const MESSAGE_FN_CALL = 2;
+const MESSAGE_PING = 2;
 
 const RESULT_ERROR = 0;
 const RESULT_SUCCESS = 1;

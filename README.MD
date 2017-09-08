@@ -38,6 +38,19 @@ registerWebworker(async (message, emit) => {
 });
 ```
 
+### Nodejs shim
+
+You can use webworker-promise with nodejs using shim
+
+**Note** It uses nodejs `child_process` for workers
+
+```js
+const Worker = require('webworker-promise/lib/node-worker');
+const WebWorkerPromise = require('webworker-promise');
+
+const worker = new WebWorkerPromise(new Worker('./node-process'));
+```
+
 ### Message format
 
 The message you send can be any object, array, string, number, etc.:
@@ -128,9 +141,35 @@ worker.exec('hello')
 })
 ```
 
+
+### Workers Pool
+
+Dynamic pool for workers.
+
+**Note:** It's experimental feature, and api may be changed
+
+```js
+const WorkerPool = require('webworker-promise/lib/pool');
+const pool = WorkerPool.create({
+    src: './test.worker.js',
+    // or
+    create: () => new Worker('./test.worker.js'),
+    maxThreads: 3, // optional, default is 2, max numbers of workers to create if necessary
+    maxConcurrentPerWorker: 1 // optional, default is 1
+});
+
+pool.postMessage('hello')
+    .then(() => {
+        console.log('result');
+    });
+
+```
+
+Pool has `exec` and `postMessage` methods with the same api as WebWorkerPromise
+
 ### Promises
 
-Inside of the worker, the registered handler should return only Promise
+Inside of the worker, the registered handler should return Promise or just value
 
 ### Error handling
 

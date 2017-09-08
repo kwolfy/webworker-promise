@@ -1,9 +1,9 @@
 const ChildProcess = require('child_process');
 const path = require('path');
 
-class Webworker {
+class Worker {
   constructor(script) {
-    this._process = ChildProcess.fork(path.join(__dirname, 'worker.js'), [script]);
+    this._process = ChildProcess.fork(path.join(__dirname, 'node-child-process.js'), [script]);
     this._process.on('message', (data) => this.onmessage({data}));
   }
 
@@ -13,6 +13,12 @@ class Webworker {
 
   onmessage(data) {}
 
+  terminate() {
+    // terminated
+    this._process.kill('SIGINT');
+    this._terminated = true;
+  }
+
 }
 
-module.exports = Webworker;
+module.exports = Worker;

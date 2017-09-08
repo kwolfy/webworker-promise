@@ -6,8 +6,11 @@ const expect = chai.expect;
 
 const path = require('path');
 
-const Worker = require('./pseudo-worker');
+const Worker = require('../src/node-worker');
 const WorkerPromise = require('../src');
+const WorkerPool = require('../src/pool');
+
+const sleep = delay => new Promise(res => setTimeout(res, delay));
 
 describe('Worker promise', () => {
 
@@ -109,6 +112,55 @@ describe('Worker promise', () => {
     it('should throw error when trying to call undefined operation', async () => {
       const result = worker.exec('my-undefined-operation');
       return expect(result).to.be.rejectedWith('Not found handler for this request');
+    });
+
+
+  });
+
+
+  describe('Pool', () => {
+    const opts = {
+      create: () => new Worker(path.join(__dirname, './math.worker.js')),
+      maxThreads: 3,
+      maxConcurrentPerWorker: 1
+    };
+
+    it('should create additional workers per job but no more than maxConcurrentWorkers', async () => {
+      const pool = WorkerPool.create(Object.assign(opts, {maxConcurrentPerWorker: 2}));
+
+      const tasks = [
+        pool.postMessage({func: 'add', delay: 30, nums: [100, 200]}),
+        pool.postMessage({func: 'minus', delay: 30, nums: [100, 50]}),
+        pool.postMessage({func: 'add', delay: 30, nums: [400, 1000]}),
+      ];
+
+      const results = await Promise.all(tasks);
+
+      expect(results[0]).to.be.equal(300);
+      expect(results[1]).to.be.equal(50);
+      expect(results[2]).to.be.equal(1400);
+
+      expect(pool._workers).to.have.length(2);
+    });
+
+    it('should terminate worker after inactivity', async () => {
+      const pool = WorkerPool.create(Object.assign(opts, {
+        maxConcurrentPerWorker: 1,
+        terminateAfterDelay: 100
+      }));
+
+      const tasks = [
+        pool.postMessage({func: 'add', delay: 30, nums: [100, 200]}),
+        pool.postMessage({func: 'minus', delay: 30, nums: [100, 50]}),
+      ];
+
+      expect(pool._workers).to.have.length(2);
+
+      await Promise.all(tasks);
+      await sleep(200);
+
+      expect(pool._workers).to.have.length(1);
+
     });
 
 

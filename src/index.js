@@ -16,6 +16,23 @@ class Worker {
 
     this._worker = worker;
     this._worker.onmessage = this._onMessage.bind(this);
+    this._id = Math.ceil(Math.random() * 10000000);
+  }
+
+  terminate() {
+    this._worker.terminate();
+  }
+
+  /**
+   * return true if there is no unresolved jobs
+   * @returns {boolean}
+   */
+  isFree() {
+    return this._messages.size === 0;
+  }
+
+  jobsLength() {
+    return this._messages.size;
   }
 
   /**
@@ -58,6 +75,8 @@ class Worker {
       this._onEvent(...args);
     else if(type === MESSAGE_RESULT)
       this._onResult(...args);
+    else if(type === MESSAGE_PING)
+      this._lastPingDate = Date.now();
     else
       throw new Error(`Wrong message type '${type}'`);
   }

@@ -8,6 +8,13 @@ const math = {
     return num1 + num2;
   },
 
+  // take all of the event loop
+  async addLoop(emit, delay, num1, num2) {
+    let start = Date.now();
+    while(Date.now() - start < delay) {}
+    return num1 + num2;
+  },
+
   async minus(emit, delay, num1, num2) {
     await sleep(delay);
     return num1 - num2;
