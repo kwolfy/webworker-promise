@@ -4,6 +4,7 @@
   "description": "Promise for webworkers",
   "main": "lib/index.js",
   "scripts": {
+    "dist": "webpack -p",
     "build": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "test": "mocha test/test.js",
@@ -20,10 +21,12 @@
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "webpack": "^3.5.6"
   }
 }
