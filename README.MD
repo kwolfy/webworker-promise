@@ -7,7 +7,7 @@ Usage
 
 Install:
 
-    npm install webworker-worker
+    npm install webworker-promise
 
 Inside your main bundle:
 
