@@ -118,6 +118,31 @@ registerWebworker(async (message, emit) => {
 });
 ```
 
+
+### EventEmitter
+
+Combine with simple EventEmitter mode
+
+```js
+// main.js
+worker.emit('add', 11, 22);
+```
+
+```js
+// worker.js
+const host = registerWebworker()
+.on('add', (n1, n2) => {
+    host.emit('add:ok', n1 + n2);
+})
+.once('minus', (n1, n2) => {
+  host.emit('minus:answer', n1 - n2)';
+})
+// you still can add operations
+.operation('foo', async () => {
+  return 'bar';
+});
+```
+
 ### Operations
 
 Also, you can create operations

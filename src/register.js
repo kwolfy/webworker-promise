@@ -1,3 +1,5 @@
+const TinyEmitter = require('./tiny-emitter');
+
 const MESSAGE_RESULT = 0;
 const MESSAGE_EVENT = 1;
 const MESSAGE_PING = 2;
@@ -10,6 +12,22 @@ const DEFAULT_HANDLER = 'main';
 function RegisterPromise(fn) {
   const handlers = {[DEFAULT_HANDLER]: fn};
   const sendPostMessage = self.postMessage.bind(self);
+
+  const server = new class WorkerRegister extends TinyEmitter {
+    emit(eventName, ...args) {
+      sendPostMessage({eventName, args: args});
+      return this;
+    }
+
+    emitLocally(eventName, ...args) {
+      super.emit(eventName, ...args);
+    }
+
+    operation(name, handler) {
+      handlers[name] = handler;
+      return this;
+    }
+  };
 
   const run = (messageId, payload, handlerName) => {
     runFn(messageId, payload, handlerName)
@@ -51,16 +69,15 @@ function RegisterPromise(fn) {
     sendPostMessage([MESSAGE_EVENT, messageId, eventName, payload]);
   };
 
-  self.addEventListener('message', e => run(...e.data));
-
-  const _this = {
-    operation: (name, handler) => {
-      handlers[name] = handler;
-      return _this;
+  self.addEventListener('message', ({data}) => {
+    if(Array.isArray(data)) {
+      run(...data);
+    } else if(data && data.eventName) {
+      server.emitLocally(data.eventName, ...data.args);
     }
-  };
+  });
 
-  return _this;
+  return server;
 }
 
 class TransferableResponse {

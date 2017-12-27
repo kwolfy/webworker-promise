@@ -115,6 +115,21 @@ describe('Worker promise', () => {
     });
 
 
+
+    it('should send event host=>worker worker=>host', async () => {
+      const resultPromise = onPromise(worker, 'bar:result');
+      worker.emit('bar', 11, 22);
+
+      expect(await resultPromise).to.be.equal(33);
+    });
+
+    function onPromise(worker, eventName) {
+      return new Promise((res, rej) => {
+        worker.on(eventName, (...args) => res(...args));
+      });
+    }
+
+
   });
 
 
@@ -160,7 +175,6 @@ describe('Worker promise', () => {
       await sleep(200);
 
       expect(pool._workers).to.have.length(1);
-
     });
 
 

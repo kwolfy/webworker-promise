@@ -1,16 +1,19 @@
+const TinyEmitter = require('./tiny-emitter');
+
 const MESSAGE_RESULT = 0;
 const MESSAGE_EVENT = 1;
 
 const RESULT_ERROR = 0;
 const RESULT_SUCCESS = 1;
 
-class Worker {
+class Worker extends TinyEmitter {
   /**
    *
    * @param worker {Worker}
    */
-
   constructor(worker) {
+    super();
+
     this._messageId = 1;
     this._messages = new Map();
 
@@ -65,9 +68,15 @@ class Worker {
     });
   }
 
+  emit(eventName, ...args) {
+    this._worker.postMessage({eventName, args});
+  }
+
   _onMessage(e) {
-    if(!Array.isArray(e.data))
-      throw new Error(`Wrong message format'`);
+    //if we got usual event, just emit it locally
+    if(!Array.isArray(e.data) && e.data.eventName) {
+      return super.emit(e.data.eventName, ...e.data.args);
+    }
 
     const [type, ...args] = e.data;
 
@@ -75,8 +84,6 @@ class Worker {
       this._onEvent(...args);
     else if(type === MESSAGE_RESULT)
       this._onResult(...args);
-    else if(type === MESSAGE_PING)
-      this._lastPingDate = Date.now();
     else
       throw new Error(`Wrong message type '${type}'`);
   }

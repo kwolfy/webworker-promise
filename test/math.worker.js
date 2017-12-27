@@ -41,9 +41,12 @@ const math = {
 
 };
 
-register(async (data, emit) => {
+const host = register(async (data, emit) => {
   return math[data.func](emit, data.delay, ...data.nums);
 })
 .operation('add-operation', async ([n1, n2]) => {
   return n1 + n2;
+})
+.on('bar', function(n1, n2) {
+  host.emit('bar:result', n1 + n2);
 });
