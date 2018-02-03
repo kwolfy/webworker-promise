@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const ROOT_PREFIX = 'WebWorkerPromise';
@@ -64,4 +65,16 @@ const worker = {
   }
 };
 
-module.exports = [main, pool, worker];
+const minify = (conf) => {
+  return {
+    ...conf,
+    output: {
+      ...conf.output,
+      filename: '[name].min.js'
+    },
+    plugins: [new UglifyJsPlugin()]
+  };
+};
+
+
+module.exports = [main, pool, worker, minify(main), minify(pool), minify(worker)];
