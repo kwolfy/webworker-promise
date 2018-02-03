@@ -135,7 +135,7 @@ const host = registerWebworker()
     host.emit('add:ok', n1 + n2);
 })
 .once('minus', (n1, n2) => {
-  host.emit('minus:answer', n1 - n2)';
+  host.emit('minus:answer', n1 - n2);
 })
 // you still can add operations
 .operation('foo', async () => {
