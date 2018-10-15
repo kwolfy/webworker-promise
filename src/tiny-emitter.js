@@ -8,6 +8,9 @@ class TinyEmitter {
   }
 
   emit(eventName, ...args) {
+    if(!this.__listeners[eventName])
+      return this;
+
     for(const handler of this.__listeners[eventName]) {
       handler(...args);
     }
