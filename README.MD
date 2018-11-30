@@ -121,10 +121,15 @@ registerWebworker(async (message, emit) => {
 
 ### EventEmitter
 
-Combine with simple EventEmitter mode
+You can use it as regular event-emitter, webworker-promise has all event-emitter methods to send events in direction worker => main or main => worker
 
 ```js
 // main.js
+
+host.on('add:ok', (sum) => {
+// sum is 33;
+});
+
 worker.emit('add', 11, 22);
 ```
 
