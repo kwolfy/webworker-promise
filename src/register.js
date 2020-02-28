@@ -16,7 +16,11 @@ function RegisterPromise(fn) {
 
   const server = new class WorkerRegister extends TinyEmitter {
     emit(eventName, ...args) {
-      sendPostMessage({eventName, args: args});
+      if (args.length == 1 && args[0] instanceof TransferableResponse) {
+        sendPostMessage({eventName, args: args}, args[0].transferable);
+      } else {
+        sendPostMessage({eventName, args: args});
+      }
       return this;
     }
 
