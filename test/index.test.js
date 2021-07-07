@@ -40,6 +40,15 @@ describe('Worker promise', () => {
 
       expect(await worker.postMessage(false)).to.be.equal(true);
     });
+  });
+  
+  describe('Mirror', () => {
+    const worker = new WorkerPromise(new Worker(path.join(__dirname, './mirror.worker.js')));
+  
+    it('null object send->receive', async () => {
+      const result = await worker.postMessage(null);
+      expect(result).to.be.equal(null);
+    });
 
   });
 
