@@ -8,7 +8,7 @@ const RESULT_SUCCESS = 1;
 
 const DEFAULT_HANDLER = 'main';
 
-const isPromise = o => typeof o === 'object' && typeof o.then === 'function' && typeof o.catch === 'function';
+const isPromise = o => typeof o === 'object' && o !== null && typeof o.then === 'function' && typeof o.catch === 'function';
 
 function RegisterPromise(fn) {
   const handlers = {[DEFAULT_HANDLER]: fn};
