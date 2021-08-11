@@ -33,6 +33,10 @@ class WorkerPool {
       opts.maxConcurrentPerWorker = 1;
     }
 
+    if(!Number.isInteger(opts.maxThreads) || !Number.isInteger(opts.maxConcurrentPerWorker)){
+      console.warn('WARNING: The maxThreads and maxConcurrentPerWorker parameters should be integers equal or greater than 1');
+    }
+
     return new WorkerPool(opts);
   }
 
