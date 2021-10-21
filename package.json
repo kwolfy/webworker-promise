@@ -1,15 +1,17 @@
 {
   "name": "webworker-promise",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Promise for webworkers",
   "module": "src/index.js",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "prepublish": "npm run build; npm run dist",
+    "prepublish": "npm run build; npm run dist; npm run copy-types",
     "dist": "webpack",
     "build": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "test": "mocha ./test/*.test.js",
+    "copy-types": "cp src/*.d.ts lib",
     "coverage": "istanbul cover _mocha test/*.test.js"
   },
   "author": {
