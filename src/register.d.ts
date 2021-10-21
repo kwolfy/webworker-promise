@@ -145,7 +145,6 @@ declare namespace registerWebworker {
    *  });
    * ```
    */
-  // tslint:disable-next-line:no-unnecessary-class
   class TransferableResponse {
     constructor(response: any, tranferables: Transferable[]);
   }

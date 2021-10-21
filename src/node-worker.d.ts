@@ -15,7 +15,6 @@ export = NodeWorker;
  * ```
  *
  */
-// tslint:disable-next-line:no-unnecessary-class
 declare class NodeWorker {
   constructor(filePath: string);
 }
