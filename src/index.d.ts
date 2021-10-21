@@ -1,8 +1,3 @@
-// Type definitions for webworker-promise 0.4
-// Project: https://github.com/kwolfy/webworker-promise#readme
-// Definitions by: Idicious <https://github.com/idicious>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import NodeWorker = require("./node-worker");
 
 export = PromiseWorker;
