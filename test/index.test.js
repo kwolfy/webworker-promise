@@ -1,6 +1,8 @@
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
+const spies = require('chai-spies');
 chai.use(chaiAsPromised);
+chai.use(spies);
 
 const expect = chai.expect;
 
@@ -39,6 +41,15 @@ describe('Worker promise', () => {
       expect(result).to.be.equal(true);
 
       expect(await worker.postMessage(false)).to.be.equal(true);
+    });
+  });
+  
+  describe('Mirror', () => {
+    const worker = new WorkerPromise(new Worker(path.join(__dirname, './mirror.worker.js')));
+  
+    it('null object send->receive', async () => {
+      const result = await worker.postMessage(null);
+      expect(result).to.be.equal(null);
     });
 
   });
@@ -177,6 +188,26 @@ describe('Worker promise', () => {
       expect(pool._workers).to.have.length(1);
     });
 
+    it('should give warning for if maxThreads is a floating point number', async () => {
+      const spy = chai.spy.on(console, 'warn');
+      WorkerPool.create(Object.assign(opts, {
+        maxThreads: 1.5,
+        terminateAfterDelay: 100
+      }));
+
+      expect(spy).to.have.been.called.once;
+    });
+
+    it('should give warning for if maxConcurrencyPerWorker is a floating point number', async () => {
+      const spy = chai.spy.on(console, 'warn');
+      WorkerPool.create(Object.assign(opts, {
+        maxThreads: 2,
+        maxConcurrentPerWorker: 1.5,
+        terminateAfterDelay: 100
+      }));
+
+      expect(spy).to.have.been.called.once;
+    });
 
   });
 

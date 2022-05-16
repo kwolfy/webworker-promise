@@ -1,4 +1,4 @@
-# webworker-promise [![Build Status](https://travis-ci.org/kwolfy/webworker-promise.svg?branch=master)](https://travis-ci.org/kwolfy/webworker-promise)
+# webworker-promise [![Build Status](https://travis-ci.com/kwolfy/webworker-promise.svg?branch=master)](https://travis-ci.com/kwolfy/webworker-promise)
 
 A small promise based wrapper over the "webworkers"
 
