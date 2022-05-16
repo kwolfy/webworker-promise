@@ -15,7 +15,7 @@ class TransferableResponse {
     }
 }
 
-const isPromise = o => typeof o === 'object' && typeof o.then === 'function' && typeof o.catch === 'function';
+const isPromise = o => typeof o === 'object' && o !== null && typeof o.then === 'function' && typeof o.catch === 'function';
 
 class Communicator extends TinyEmitter {
     
