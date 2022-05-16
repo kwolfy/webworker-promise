@@ -134,6 +134,12 @@ describe('Worker promise', () => {
       expect(await resultPromise).to.be.equal(33);
     });
 
+    it('should call operation host=>worker, then call operation worker=>host', async () => {
+      worker.operation('add-operation:get', (n1) => n1 * 2)
+      const resultPromise = await worker.exec('add-operation-chain', 11);
+      expect(resultPromise).to.be.equal(33);
+    });
+
     function onPromise(worker, eventName) {
       return new Promise((res, rej) => {
         worker.on(eventName, (...args) => res(...args));

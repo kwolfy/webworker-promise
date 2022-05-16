@@ -47,6 +47,9 @@ const host = register(async (data, emit) => {
 .operation('add-operation', async ([n1, n2]) => {
   return n1 + n2;
 })
+.operation('add-operation-chain', async (n1) => {
+  return host.exec('add-operation:get', n1).then((n2) => n1 + n2);
+})
 .on('bar', function(n1, n2) {
   host.emit('bar:result', n1 + n2);
 });
