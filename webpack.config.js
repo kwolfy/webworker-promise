@@ -18,6 +18,7 @@ const defaultConfig = {
     filename: "[name].js",
     libraryTarget: 'umd'
   },
+  mode: 'development',
   module: {
     rules: [
       {
