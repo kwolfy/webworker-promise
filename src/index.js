@@ -78,14 +78,16 @@ class Worker extends TinyEmitter {
       return super.emit(e.data.eventName, ...e.data.args);
     }
 
+    if (!Array.isArray(e.data)) {
+      return ;
+    }
+
     const [type, ...args] = e.data;
 
     if(type === MESSAGE_EVENT)
       this._onEvent(...args);
     else if(type === MESSAGE_RESULT)
       this._onResult(...args);
-    else
-      throw new Error(`Wrong message type '${type}'`);
   }
 
   _onResult(messageId, success, payload) {

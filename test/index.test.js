@@ -151,6 +151,10 @@ describe('Worker promise', () => {
       maxConcurrentPerWorker: 1
     };
 
+    beforeEach(() => {
+      chai.spy.restore();
+    })
+
     it('should create additional workers per job but no more than maxConcurrentWorkers', async () => {
       const pool = WorkerPool.create(Object.assign(opts, {maxConcurrentPerWorker: 2}));
 
