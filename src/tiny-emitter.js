@@ -1,9 +1,8 @@
 class TinyEmitter {
   constructor() {
     Object.defineProperty(this, '__listeners', {
-      value: {},
-      enumerable: false,
-      writable: false
+      value: Object.create(null),
+      enumerable: false
     });
   }
 
