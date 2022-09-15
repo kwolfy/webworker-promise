@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const ROOT_PREFIX = 'WebWorkerPromise';
@@ -22,12 +21,12 @@ const defaultConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
+            presets: ['@babel/preset-env']
           }
         }
       }
@@ -72,7 +71,7 @@ const minify = (conf) => {
       ...conf.output,
       filename: '[name].min.js'
     },
-    plugins: [new UglifyJsPlugin()]
+    mode: 'production'
   };
 };
 

@@ -6,12 +6,12 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepublish": "npm run build; npm run dist; npm run copy-types",
+    "prepublish": "npm run build && npm run dist && npm run copy-types",
     "dist": "webpack",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib && cp src/types/*.d.ts lib",
     "watch": "babel src --out-dir lib --watch",
     "test": "mocha ./test/*.test.js",
-    "copy-types": "cp src/*.d.ts lib",
+    "copy-types": "cp src/types/*.d.ts lib",
     "coverage": "istanbul cover _mocha test/*.test.js"
   },
   "author": {
@@ -24,17 +24,18 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "babel-loader": "^8.2.5",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
     "chai-spies": "^0.7.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
-    "uglifyjs-webpack-plugin": "^1.1.8",
-    "webpack": "^3.5.6",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.10.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "webpack": "^5.74.0"
+  }
 }
