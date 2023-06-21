@@ -1,5 +1,8 @@
 # webworker-promise [![Build Status](https://app.travis-ci.com/kwolfy/webworker-promise.svg?branch=master)](https://app.travis-ci.com/kwolfy/webworker-promise)
 
+## The package is DEPRECATED since there is a more popular and reputable library from Google Chrome Team [comlink](https://github.com/GoogleChromeLabs/comlink)
+
+
 A small promise based wrapper over the "webworkers"
 
 Usage
